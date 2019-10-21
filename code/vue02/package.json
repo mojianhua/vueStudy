@@ -1,0 +1,17 @@
+{
+  "name": "vue02",
+  "version": "1.0.1",
+  "description": "vue学习",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "阿吉",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.4.1",
+    "swiper": "^4.2.6",
+    "vue": "^2.6.10"
+  }
+}

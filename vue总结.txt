@@ -1,0 +1,6 @@
+1、初始化项目npm ini
+2、vue下载包，npm install jQuery --save，以上例子是下载jq
+3、卸载vue包，npm uninstall jQuery --save，以上例子是卸载jq
+4、如果直接执行npm install,会根据package.json下载包
+5、开启本地服务器npm run dev
+6、打包，npm run build
