@@ -1,0 +1,107 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Untitled Document</title>
+<style type="text/css">
+	.box{
+		width: 100px;
+		height: 100px;
+		background: red;
+	}
+
+	.box1{
+		width: 100px;
+		height: 100px;
+		background: green;
+	}
+</style>
+</head>
+	<div id="data">
+		<h3> {{msg}} </h3>
+		<br/>
+		<br/>
+		<br/>
+		<!-- 指令系统，(条件指令符)都是v-*，下面例子是根据data里面的show来判断的 -->
+		<div v-if = 'show'>指令系统</div>
+		<br/>
+		<br/>
+		<br/>
+		<div v-if = 'Math.random() > 0.5'>条件指令符随机数‘大于0.5’运算得到的</div>
+		<div v-else>条件指令符随机数’小于0.5‘运算得到的</div>
+		<br/>
+		<br/>
+		<br/>
+		<!-- 指令运算符if-elseif-else -->
+		<div v-if ="type === 'thunder'">打雷</div>
+		<div v-else-if="type === 'rain'">下雨</div>
+		<div v-else>雷阵雨</div>
+		<br/>
+		<br/>
+		<br/>
+		<!-- 事件指令符,以下是点击事件,后面绑定事件方法 -->
+		<button v-on:click = "clickHandle">切换</button>
+		<!-- 事件指令符,简便写法直接用@ -->
+		<button @click = "clickHandle">切换</button>
+		<br/>
+		<br/>
+		<br/>
+		<!-- 绑定属性,以下例子是绑定title属性 -->
+		<h3 v-bind:title="title">我是阿吉</h3>
+		<!-- v-bind:简便写法直接用: -->
+		<h3 :title="title">我是阿吉</h3>
+		<!-- <img v-bind:src="imgSrc" v-bind:alt='time'> -->
+		<h3>{{time}}</h3>
+		<br/>
+		<br/>
+		<br/>
+		<!-- 绑定类名以下是修改class名，{key:val}方式，更多用，隔开，如果val的知是true，就胡用key值赋值到属性上。以下是修改class属性 -->
+		<div class="box" :class={box2:isYellow}>
+		<button @click="changeBox">切换颜色</button>
+		<br/>
+		<br/>
+		<br/>
+		<!-- 监听事件 -->
+		<button @click = 'count+=1'>加{{count}}</button>
+		</div>
+	</div>
+	<script type="text/javascript" src="./vue.js"></script>
+	<script type="text/javascript">
+		//vue实例化对象
+		var app = new Vue({
+			// 与上面的data匹配,定义一个区间
+			el : "#data",
+			data:{
+				// 赋值
+				msg:"今天我要学习vue",
+				show:false,
+				type:'thunder111',
+				title:"hahaha",
+				// imgSrc="./gaoda.jpg",
+				time:`页码加载${new Date().toLocaleString()}`,
+				isYellow:false,
+				count:0
+			},
+			//绑定事件
+			methods:{
+				//事件声明
+				clickHandle:function(){
+					//alert('点击切换按钮')
+
+					//修改上面data的show数据
+					//this.show = true
+					this.show = !this.show;
+				},
+				changeBox:function(){
+					this.isYellow = !this.isYellow;
+				}
+			}
+		})
+
+		//指令系统
+
+		//指令台
+		console.log(app)
+	</script>
+<body>
+</body>
+</html>
