@@ -4,3 +4,4 @@
 4、如果直接执行npm install,会根据package.json下载包
 5、开启本地服务器npm run dev
 6、打包，npm run build
+7、全局升级npm-------npm install npm@lastest -g 
