@@ -49,7 +49,7 @@
 		<h3 v-bind:title="title">我是阿吉</h3>
 		<!-- v-bind:简便写法直接用: -->
 		<h3 :title="title">我是阿吉</h3>
-		<!-- <img v-bind:src="imgSrc" v-bind:alt='time'> -->
+		<img v-bind:src="imgSrc" v-bind:alt='time'>
 		<h3>{{time}}</h3>
 		<br/>
 		<br/>
@@ -62,6 +62,16 @@
 		<br/>
 		<!-- 监听事件 -->
 		<button @click = 'count+=1'>加{{count}}</button>
+		</div>
+		<!-- 循环 -->
+		<div>
+			<!-- mouseenter鼠标移上去执行 -->
+			<!-- mouseleave鼠标离开去执行 -->
+			<img :src="changeImageSrc" @mouseenter='closeTimer' @mouseleave='openTimer'>
+			<ul>
+				<li v-for = "(val,key) in imgArr" @click='changeImage(val)'>{{key+1}}</li>
+				<li @click="changeImageNext">下一张</li>
+			</ul>
 		</div>
 	</div>
 	<script type="text/javascript" src="./vue.js"></script>
@@ -76,10 +86,24 @@
 				show:false,
 				type:'thunder111',
 				title:"hahaha",
-				// imgSrc="./gaoda.jpg",
+				imgSrc:"./gaoda.jpg",
 				time:`页码加载${new Date().toLocaleString()}`,
 				isYellow:false,
-				count:0
+				count:0,
+				imgArr:[
+					{id:1,src:'./gaoda1.jpg'},
+					{id:2,src:'./gaoda2.jpg'},
+					{id:3,src:'./gaoda3.jpg'}
+
+				],
+				changeImageSrc:'./gaoda1.jpg',
+				changeImageNowkey:0,
+				timer:null
+			},
+			created(){
+				//生命周期
+				// 2s执行一次方法
+				this.timer = setInterval(this.changeImageNext,2000)
 			},
 			//绑定事件
 			methods:{
@@ -93,6 +117,20 @@
 				},
 				changeBox:function(){
 					this.isYellow = !this.isYellow;
+				},
+				changeImage:function(val){
+					this.changeImageSrc = val.src
+				},
+				changeImageNext:function(){
+					this.changeImageNowkey++
+					console.log(this.changeImageNowkey)
+					this.changeImageSrc = this.imgArr[this.changeImageNowkey].src
+				},
+				closeTimer:function(){
+					clearInterval(this.timer);
+				},
+				openTimer:function(){
+					setInterval(this.changeImageNext,2000)
 				}
 			}
 		})
