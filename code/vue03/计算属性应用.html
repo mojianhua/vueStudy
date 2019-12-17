@@ -1,0 +1,161 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Untitled Document</title>
+<style type="text/css">
+	.box{
+		width: 100px;
+		height: 100px;
+		background: red;
+	}
+
+	.box1{
+		width: 100px;
+		height: 100px;
+		background: green;
+	}
+
+	.div{
+		border:1px solid red;
+		margin-top: 20px;
+	}
+</style>
+</head>
+	<div id="computed" class="div">
+		<!-- <input type="text" v-model='msg'> -->
+		<!-- <input type="text" v-bind:value='msg'> -->
+		<!-- @input,当输入框有内容输入的时候调用方法，以下调用msgChange方法-->
+		<input type="text" :value='msg' @input='msgChange'>
+		<h3>{{msg}}</h3>
+		<br/>
+		<p>多行文本：{{textareaData}}</p>
+		<textarea v-model='textareaData'></textarea>
+		<br/>
+		<p>单个复选框</p>
+		<input type="checkbox" v-model="checked">
+		<label>{{ checked }}</label>
+		<p>自定义复选框的值</p>
+		<input type="checkbox" v-model="checked2" true-value="yes"  false-value="no">
+		<label>{{ checked2 }}</label>
+		<!-- 失去光标的时候执行 -->
+		<input type="text" v-model.lazy="msgLazy">
+		<label>{{ msgLazy }}</label>
+		<!-- 只能输入数字 -->
+		<input v-model.number="age" type="number" type="text">
+		<!-- 去重两边空格 -->
+		<input v-model.trim="msgTrim">
+	</div>
+	
+	<div id="computed2" class="div">
+		<!-- 多选框 -->
+		<input type="checkbox" id="jim1" value="jim1" v-model="checkedNames">
+		<label for="jim1">jim1</label>
+		<input type="checkbox" id="jim2" value="jim2" v-model="checkedNames">
+		<label for="jim2">jim2</label>
+		<input type="checkbox" id="jim3" value="jim3" v-model="checkedNames">
+		<label for="jim3">jim3</label>
+		<span>Checked names: {{ checkedNames }}</span>
+	</div>
+
+	<div id = "radioTest" class="div">
+		<!-- 单选框 -->
+		<input type="radio" id="one" value="One" v-model="picked">
+		<label for="one">One</label>
+		<br>
+		<input type="radio" id="two" value="Two" v-model="picked">
+		<label for="two">Two</label>
+		<br/>
+		<span>picked:{{ picked }}</span>
+	</div>
+
+	<div id="selectOne" class="div">
+		<!-- 单选下拉框 -->
+		<select v-model="selectOne">
+			<option disabled value="">请选择</option>
+			<option>A</option>
+			<option>B</option>
+			<option>C</option>
+		</select>
+		<span>Selected: {{ selectOne }}</span>
+	</div>
+
+	<div id="selectVfor" class="div">
+		<!-- 用 v-for 渲染的动态选项： -->
+		<select v-model="selectVfor">
+		  <option v-for="option in options" v-bind:value="option.value">
+		    {{ option.text }}
+		  </option>
+		</select>
+		<span>Selected: {{ selectVfor }}</span>
+	</div>
+
+	<script type="text/javascript" src="./vue.js"></script>
+	<script type="text/javascript">
+		var app = new Vue({
+			el:'#computed',
+			//数据
+			data:{
+				msg:'123456789',
+				textareaData:'多行文本',
+				checked:true,
+				checked2:'',
+				msgLazy:'msgLazy',
+				age:0,
+				msgTrim:'Test'
+			},
+			//事件
+			methods:{
+				msgChange(e){
+					//e.target.value获取输入框内容
+					console.log(e.target.value)
+					this.getValue = e.target.value
+				}
+			},
+			computed:{
+				getValue:{
+					set:function(newValue){
+						this.msg = newValue
+					},
+					get:function(){
+						return this.msg
+					}
+				}
+			}
+		})
+
+		var computed2 = new Vue({
+			el:'#computed2',
+			data:{
+				checkedNames:[]
+			}
+		})
+
+		var radioTest = new Vue({
+			el:"#radioTest",
+			data:{
+				picked:''
+			}
+		})
+
+		var selectOne = new Vue({
+			el:'#selectOne',
+			data:{
+				selectOne:[]
+			}
+		})
+		
+		var selectVfor = new Vue({
+			el:'#selectVfor',
+			data:{
+				selectVfor: 'AA',
+				options:[
+					{ text: 'One', value: 'AA' },
+					{ text: 'Two', value: 'BB' },
+					{ text: 'Three', value: 'CC' }
+				]
+			}
+		})
+	</script>
+<body>
+</body>
+</html>

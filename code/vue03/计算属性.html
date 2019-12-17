@@ -1,0 +1,62 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Untitled Document</title>
+<style type="text/css">
+	.box{
+		width: 100px;
+		height: 100px;
+		background: red;
+	}
+
+	.box1{
+		width: 100px;
+		height: 100px;
+		background: green;
+	}
+</style>
+</head>
+	<div id="data">
+		<!-- 反转字符串 -->
+		{{msg.split('').reverse().join('')}}
+		<br/>
+		{{reverseMsg}}
+		<br/>
+		<button @click='clickHandle'>修改msg</button>
+	</div>
+	<script type="text/javascript" src="./vue.js"></script>
+	<script type="text/javascript">
+		var app = new Vue({
+			el : '#data',
+			data:{
+				msg:'Hello World'
+			},
+			//事件
+			methods:{
+				clickHandle(){
+					console.log(this.reverseMsg);   //Get方法
+					this.reverseMsg = 'Hello Jim123456'; //Set方法
+					//this.msg = 'Hello Jimjjj';
+				}
+			},
+			//计算属性
+			computed:{
+				// 默认只有getter方法
+				// reverseMsg(){
+				// 	return this.msg.split('').reverse().join('')
+				// }
+				
+				reverseMsg:{
+					set:function(newValue){
+						this.msg = newValue;
+					},
+					get:function(){
+						return this.msg.split('').reverse().join('');
+					}
+				}
+			}
+		})
+	</script>
+<body>
+</body>
+</html>
