@@ -1,0 +1,75 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Untitled Document</title>
+<style type="text/css">
+	ul{
+		list-style: none;
+	}
+
+	li{
+		border-bottom: 1px solid gray;
+	}
+</style>
+</head>
+	<div id="music">
+		<audio :src="currSong" autoplay="" controls="" @ended='nextSong'></audio>
+		
+		<ul>
+			<li v-for="(item,index) in songs" @click='clickHandler(index)'>
+				<h3>歌名：{{item.name}}</h3>
+				<h3>歌手：{{item.author}}</h3>
+			</li>
+		</ul>
+		{{SongData}}
+		<button @click='addSong'>添加歌曲</button>
+	</div>
+
+	<script type="text/javascript" src="./vue.js"></script>
+	<script type="text/javascript">
+		var songs = [
+			{id:1,src:'./musicData/1.mp3',name:'music111',author:'jim111'},
+			{id:2,src:'./musicData/2.mp3',name:'music222',author:'jim222'},
+			{id:3,src:'./musicData/3.mp3',name:'music333',author:'jim333'},
+			{id:4,src:'./musicData/4.mp3',name:'music444',author:'jim444'}
+		]
+
+		var music = new Vue({
+			el:'#music',
+			data:{
+				songs: songs,
+				SongData:'./musicData/1.mp3',
+				songsIndex:0,
+				songsCount:songs.length
+			},
+			methods:{
+				clickHandler(index){
+					//this.SongData = this.songs[index].src;
+					this.songsIndex = index
+				},
+				nextSong(){
+					this.songsIndex++;
+					//this.SongData = this.songs[this.songsIndex].src;			
+				},
+				addSong(){
+					this.songs.push({id:2,src:'./musicData/2.mp3',name:'music222',author:'jim222'});
+				}
+			},
+			computed:{
+				currSong(){
+					console.log(this.songsIndex)
+					console.log(this.songsCount)
+					if (this.songsIndex == this.songsCount){
+						this.songsIndex = 0;
+					}
+					return this.SongData = this.songs[this.songsIndex].src;
+				}		
+			},
+			created(){
+				// 通常页面初始化
+			}
+		})
+	</script>
+<body>
+</body>
+</html>
